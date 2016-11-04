@@ -1,4 +1,1 @@
-*/_build
-node_modules
-*.template
-graph.png
+__pycache__/

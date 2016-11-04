@@ -367,7 +367,7 @@ for line in line_list:
     try:
         if "Obsoleted" in each_line_list[5]:
             count = count + 1
-            output += each_line_list[0] + " "
+            output += html.A(each_line_list[0], href="http://www.rfc-editor.org/info/"+ each_line_list[0].lower().replace(" ", "")) + " "
             if count%8 == 0:
                 output += html.BR()
     except:

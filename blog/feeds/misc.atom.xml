@@ -19,7 +19,7 @@ print(count)
 &lt;/pre&gt;
 
 &lt;p&gt;接下來使用 Brython 程式碼, 將程式執行結果直接顯示在網頁上.&lt;/p&gt;
-&lt;p&gt;已經失效的 IPV6 相關 RFC 如下:&lt;/p&gt;
+&lt;p&gt;尚未失效的 IPV6 相關 RFC 如下:&lt;/p&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
 &lt;script type="text/javascript" 
@@ -52,16 +52,43 @@ output = ""
 for line in line_list:
     each_line_list = line.split("\t")
     try:
-        if "Obsoleted" in each_line_list[5]:
+        if "Obsoleted" not in each_line_list[5]:
             count = count + 1
-            output += html.A(each_line_list[0], href="http://www.rfc-editor.org/info/"+ each_line_list[0].lower().replace(" ", "")) + " "
-            if count%8 == 0:
+            output += html.A(each_line_list[0], href="http://www.rfc-editor.org/info/"+ each_line_list[0].lower().replace(" ", "")) + " | "
+            if count%10 == 0:
                 output += html.BR()
     except:
         pass
-output += html.BR() + html.BR()  + "共有 " + str(count)+ " 份文件已經失效!"
+output += html.BR() + html.BR()  + "共有 " + str(count)+ " 份文件尚未失效!"
 container &lt;= output
-&lt;/script&gt;</summary><category term="使用導引"></category></entry><entry><title>2016Fall 程式練習題</title><link href="./2016fall-cheng-shi-lian-xi-ti.html" rel="alternate"></link><published>2016-10-22T12:00:00+08:00</published><updated>2016-10-22T12:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2016-10-22:./2016fall-cheng-shi-lian-xi-ti.html</id><summary type="html">&lt;p&gt;已知截至第六週 2016fallcpa 的分組資料位於倉儲中的 &lt;a href="./../w6_group.txt"&gt;w6_group.txt&lt;/a&gt;, 而從學校修課系統下載的修課人員名條則為 &lt;a href="./../w6_list.txt"&gt;w6_list.txt&lt;/a&gt;, 請各組著手練習, 找出尚未納入分組的人員名單, 並研擬如何處置上課一個半月卻尚未進入情況的學員?&lt;/p&gt;
+&lt;/script&gt;
+
+&lt;p&gt;&lt;br /&gt;提供上述結果的 Brython 程式如下:
+&lt;br /&gt;&lt;/p&gt;
+&lt;pre class="brush: python"&gt;
+&lt;div id="container"&gt;&lt;/div&gt;
+
+&lt;script type="text/python3" id="script1"&gt;
+from browser import document, html
+container = document['container']
+data = open("./../midterm_list.txt").read()
+line_list = data.splitlines()
+count = 0
+output = ""
+for line in line_list:
+    each_line_list = line.split("\t")
+    try:
+        if "Obsoleted" not in each_line_list[5]:
+            count = count + 1
+            output += html.A(each_line_list[0], href="http://www.rfc-editor.org/info/"+ each_line_list[0].lower().replace(" ", "")) + " | "
+            if count%10 == 0:
+                output += html.BR()
+    except:
+        pass
+output += html.BR() + html.BR()  + "共有 " + str(count)+ " 份文件尚未失效!"
+container &lt;= output
+&lt;/script&gt;
+&lt;/pre&gt;</summary><category term="使用導引"></category></entry><entry><title>2016Fall 程式練習題</title><link href="./2016fall-cheng-shi-lian-xi-ti.html" rel="alternate"></link><published>2016-10-22T12:00:00+08:00</published><updated>2016-10-22T12:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2016-10-22:./2016fall-cheng-shi-lian-xi-ti.html</id><summary type="html">&lt;p&gt;已知截至第六週 2016fallcpa 的分組資料位於倉儲中的 &lt;a href="./../w6_group.txt"&gt;w6_group.txt&lt;/a&gt;, 而從學校修課系統下載的修課人員名條則為 &lt;a href="./../w6_list.txt"&gt;w6_list.txt&lt;/a&gt;, 請各組著手練習, 找出尚未納入分組的人員名單, 並研擬如何處置上課一個半月卻尚未進入情況的學員?&lt;/p&gt;
 
 
 &lt;p&gt;以下利用 Brython 讀取位於倉儲中的 &lt;a href="./../w6_list.txt"&gt;w6_list.txt&lt;/a&gt; 與 &lt;a href="./../w6_group.txt"&gt;w6_group.txt&lt;/a&gt; 資料檔案.&lt;/p&gt;

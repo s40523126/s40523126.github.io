@@ -203,7 +203,55 @@ container &lt;= html.A("save image", href=img, download="guitar_chord.png")
 
 &lt;p&gt;請注意, 開發 Brython 程式時, 建議使用 Firefox 開啟網誌, 因為反應速度較 Chrome 快速.&lt;/p&gt;
 &lt;p&gt;請各組利用上列程式範例片段, 完成下列和弦繪圖:&lt;/p&gt;
-&lt;p&gt;&lt;img src="./../graphics/BasicMajorOpenChords.jpg" /&gt;&lt;/p&gt;</summary><category term="Brython"></category></entry><entry><title>2016Fall CP 學員連結</title><link href="./2016fall-cp-xue-yuan-lian-jie.html" rel="alternate"></link><published>2016-11-05T12:00:00+08:00</published><updated>2016-11-05T12:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2016-11-05:./2016fall-cp-xue-yuan-lian-jie.html</id><summary type="html">&lt;p&gt;利用計算機程式兩班選課名單可以產生個別成員的倉儲、筆記、投影片與網誌.&lt;/p&gt;
+&lt;p&gt;&lt;img src="./../graphics/BasicMajorOpenChords.jpg" /&gt;&lt;/p&gt;
+&lt;!-- 以下實際利用  Brython 繪製動畫 --&gt;
+
+&lt;canvas id="stage" width="600" height="600"&gt;&lt;/canvas&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document
+from browser.timer import request_animation_frame
+
+import math
+import time
+
+canvas = document['stage']
+ctx = canvas.getContext('2d')
+ticks = 0
+x = 0.0
+
+def mouse_moved(ev):
+    global x
+    new_x = ev.clientX - (canvas.width / 2) + 25
+    if new_x &gt; 50 and new_x &lt; canvas.width - 100:
+        x = new_x
+
+canvas.bind("mousemove", mouse_moved)
+
+def clear():
+    ctx.save()
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.restore()
+
+def draw():
+    global ticks
+    ticks += 1
+
+    clear()
+
+    y = (150 * math.sin(ticks / 50)) + 150
+    ctx.fillStyle = "blue"
+    ctx.fillRect(x, y, 100.0, 100.0)
+    ctx.fill()
+
+def animate(i):
+    global id
+    id = request_animation_frame(animate)
+    draw()
+
+animate(0)
+&lt;/script&gt;</summary><category term="Brython"></category></entry><entry><title>2016Fall CP 學員連結</title><link href="./2016fall-cp-xue-yuan-lian-jie.html" rel="alternate"></link><published>2016-11-05T12:00:00+08:00</published><updated>2016-11-05T12:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2016-11-05:./2016fall-cp-xue-yuan-lian-jie.html</id><summary type="html">&lt;p&gt;利用計算機程式兩班選課名單可以產生個別成員的倉儲、筆記、投影片與網誌.&lt;/p&gt;
 
 
 &lt;p&gt;有關 Brython html 模組的用法, 請參考 &lt;a href="http://www.brython.info/static_doc/en/html.html"&gt;http://www.brython.info/static_doc/en/html.html&lt;/a&gt;.&lt;/p&gt;

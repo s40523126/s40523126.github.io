@@ -303,7 +303,7 @@ init_mathjax();
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-11-14T12:00:00+08:00"> 週一 14 十一月 2016</time>
+        <i class="fa fa-calendar"></i><time datetime="2016-11-14T12:00:00+08:00"> Mon 14 November 2016</time>
     </span>
             <span class="label label-default">By</span>
             <a href="./author/yen.html"><i class="fa fa-user"></i> yen</a>
@@ -395,11 +395,16 @@ ctx.closePath()
 
 <canvas id="japanflag3" width="600" height="300"></canvas>
 
+<div id="container3"></div>
+
 <script type="text/python3">
 from browser import document as doc
+from browser import html
 import math
+import re
 # 準備繪圖畫布
 canvas = doc["japanflag3"]
+container = doc["container3"]
 ctx = canvas.getContext("2d")
 # 以下可以利用 ctx 物件進行畫圖
 
@@ -503,8 +508,16 @@ ctx.strokeStyle = "black"
 ctx.stroke()
 ctx.closePath()
 
+# 以下將 canvas 畫布內容轉為 img tag, 並且顯示在 container 物件
+img = canvas.toDataURL("image/png")
+# 利用 re.sub, 將原本要直接開圖檔的 data:image 標頭, 改為 data:application/octet-stream, 可直接下載存檔
+# 使用 re 模組之前必須先 import re
+img = re.sub("^data:image\/[^;]", "data:application/octet-stream", img)
+# 宣告 anchor markup attribute download, 可以指定下載儲存檔名
+container <= html.A("save image", href=img, download="guitar_chord.png")
 </script>
 
+<p>請注意, 開發 Brython 程式時, 建議使用 Firefox 開啟網誌, 因為反應速度較 Chrome 快速.</p>
 <p>請各組利用上列程式範例片段, 完成下列和弦繪圖:</p>
 <p><img src="./../graphics/BasicMajorOpenChords.jpg" /></p>
             </div>

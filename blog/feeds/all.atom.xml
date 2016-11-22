@@ -371,6 +371,7 @@ ctx.strokeStyle = "black"
 ctx.stroke()
 ctx.closePath()
 
+'''
 # 以下將 canvas 畫布內容轉為 img tag, 並且顯示在 container 物件
 img = canvas.toDataURL("image/png")
 # 利用 re.sub, 將原本要直接開圖檔的 data:image 標頭, 改為 data:application/octet-stream, 可直接下載存檔
@@ -378,6 +379,7 @@ img = canvas.toDataURL("image/png")
 img = re.sub("^data:image\/[^;]", "data:application/octet-stream", img)
 # 宣告 anchor markup attribute download, 可以指定下載儲存檔名
 container &lt;= html.A("save image", href=img, download="guitar_chord.png")
+'''
 &lt;/script&gt;
 
 &lt;p&gt;請注意, 開發 Brython 程式時, 建議使用 Firefox 開啟網誌, 因為反應速度較 Chrome 快速.&lt;/p&gt;
@@ -388,6 +390,7 @@ container &lt;= html.A("save image", href=img, download="guitar_chord.png")
 &lt;canvas id="stage" width="600" height="600"&gt;&lt;/canvas&gt;
 
 &lt;script type="text/python3"&gt;
+'''
 from browser import document
 from browser.timer import request_animation_frame
 
@@ -430,6 +433,7 @@ def animate(i):
     draw()
 
 animate(0)
+'''
 &lt;/script&gt;</summary><category term="Brython"></category></entry><entry><title>2016Fall CP 學員連結</title><link href="./2016fall-cp-xue-yuan-lian-jie.html" rel="alternate"></link><published>2016-11-05T12:00:00+08:00</published><updated>2016-11-05T12:00:00+08:00</updated><author><name>yen</name></author><id>tag:,2016-11-05:./2016fall-cp-xue-yuan-lian-jie.html</id><summary type="html">&lt;p&gt;利用計算機程式兩班選課名單可以產生個別成員的倉儲、筆記、投影片與網誌.&lt;/p&gt;
 
 

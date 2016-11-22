@@ -508,6 +508,7 @@ ctx.strokeStyle = "black"
 ctx.stroke()
 ctx.closePath()
 
+'''
 # 以下將 canvas 畫布內容轉為 img tag, 並且顯示在 container 物件
 img = canvas.toDataURL("image/png")
 # 利用 re.sub, 將原本要直接開圖檔的 data:image 標頭, 改為 data:application/octet-stream, 可直接下載存檔
@@ -515,6 +516,7 @@ img = canvas.toDataURL("image/png")
 img = re.sub("^data:image\/[^;]", "data:application/octet-stream", img)
 # 宣告 anchor markup attribute download, 可以指定下載儲存檔名
 container <= html.A("save image", href=img, download="guitar_chord.png")
+'''
 </script>
 
 <p>請注意, 開發 Brython 程式時, 建議使用 Firefox 開啟網誌, 因為反應速度較 Chrome 快速.</p>
@@ -525,6 +527,7 @@ container <= html.A("save image", href=img, download="guitar_chord.png")
 <canvas id="stage" width="600" height="600"></canvas>
 
 <script type="text/python3">
+'''
 from browser import document
 from browser.timer import request_animation_frame
 
@@ -567,6 +570,7 @@ def animate(i):
     draw()
 
 animate(0)
+'''
 </script>
             </div>
             <!-- /.entry-content -->

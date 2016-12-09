@@ -174,6 +174,7 @@
 <v t="yen.20161204154404.1"><vh>@edit 20161204.md</vh></v>
 <v t="yen.20161206153930.1" a="E"><vh>@clean 20161206.md</vh>
 <v t="yen.20161206155939.1"><vh>ch01 print() 與 input()</vh></v>
+<v t="leo.20161209155611.1"><vh>cp a w13</vh></v>
 <v t="yen.20161206160433.1"><vh>ch02 str() 與 int() 與 float()</vh></v>
 </v>
 </v>
@@ -513,8 +514,8 @@ class HTTPServerV6(http.server.HTTPServer):
 def domake():
     # build directory
     os.chdir("./../")
-    ipv6_address = '2001:288:6004:17:3004::808'
-    server_address = (ipv6_address, 6443)
+    ipv6_address = '::1'
+    server_address = (ipv6_address, 7443)
     #httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
     httpd = HTTPServerV6(server_address, http.server.SimpleHTTPRequestHandler)
     httpd.socket = ssl.wrap_socket(httpd.socket,
@@ -522,12 +523,81 @@ def domake():
                                    certfile='localhost.crt',
                                    keyfile='localhost.key',
                                    ssl_version=ssl.PROTOCOL_TLSv1)
-    print("6443 https server started")
+    print("7443 https server started")
     httpd.serve_forever()
 
 # 利用執行緒執行 https 伺服器
 make = threading.Thread(target=domake)
 make.start()</t>
+<t tx="leo.20161209155611.1">&lt;!-- 重複迴圈與 input() 練習 --&gt;
+
+&lt;div id="container"&gt;&lt;/div&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+from browser import html
+container = doc['container']
+mystring = ""
+num = input("請輸入重複執行次數:")
+#for i in range(1, 11):
+for i in range(1, int(num)+1):
+    mystring += str(i) + ": hello mde" + html.BR()
+container &lt;= mystring
+&lt;/script&gt;
+
+&lt;pre class="brush: python"&gt;
+&lt;div id="container"&gt;&lt;/div&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+from browser import html
+container = doc['container']
+mystring = ""
+num = input("請輸入重複執行次數:")
+#for i in range(1, 11):
+for i in range(1, int(num)+1):
+    mystring += str(i) + ": hello mde" + html.BR()
+container &lt;= mystring
+&lt;/script&gt;
+&lt;/pre&gt;
+
+開始進行範例分類:
+
+1. 接受使用者輸入, 然後利用 int() 或 str() 或 float() 函式轉為題目所需的資料型別
+input() 取回的資料為字串, 經過 int() 可以轉為整數
+若 num 變數內容為整數, 經過 str() 可以轉為字串, 然後再與其他字串進行結合後列印
+
+2. 練習: 編寫一個可以將使用者輸入的攝氏溫度, 轉為華氏溫度.
+
+&lt;div id="temperature"&gt;&lt;/div&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+from browser import html
+container = doc['temperature']
+mystring = ""
+cdegree = input("請輸入攝氏溫度:")
+fdegree = float(cdegree)*9/5 + 32
+output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度"
+container &lt;= output_string
+&lt;/script&gt;
+
+&lt;pre class="brush: python"&gt;
+&lt;div id="temperature"&gt;&lt;/div&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+from browser import html
+container = doc['temperature']
+mystring = ""
+cdegree = input("請輸入攝氏溫度:")
+fdegree = float(cdegree)*9/5 + 32
+output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度"
+container &lt;= output_string
+&lt;/script&gt;
+&lt;/pre&gt;
+
+接受使用者的輸入
+
+利用 alert() 顯示結果
+
+直接列印結果</t>
 <t tx="yen.20161011114704.1">&lt;section data-markdown&gt;
     &lt;script type="text/template"&gt;
 @others

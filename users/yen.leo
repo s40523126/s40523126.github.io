@@ -513,7 +513,7 @@ class HTTPServerV6(http.server.HTTPServer):
 def domake():
     # build directory
     os.chdir("./../")
-    ipv6_address = '2001:288:6004:17:3004::808'
+    ipv6_address = '::1'
     server_address = (ipv6_address, 6443)
     #httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
     httpd = HTTPServerV6(server_address, http.server.SimpleHTTPRequestHandler)

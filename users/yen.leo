@@ -536,27 +536,40 @@ make.start()</t>
 from browser import document as doc
 from browser import html
 container = doc['container']
-mystring = ""
-num = input("請輸入重複執行次數:")
-#for i in range(1, 11):
-for i in range(1, int(num)+1):
-    mystring += str(i) + ": hello mde" + html.BR()
-container &lt;= mystring
+
+def numPrint(ev):
+    mystring = ""
+    num = input("請輸入重複執行次數:")
+    #for i in range(1, 11):
+    for i in range(1, int(num)+1):
+        mystring += str(i) + ": hello mde" + html.BR()
+    container &lt;= mystring
+
+doc['w13'].bind('click',numPrint)
 &lt;/script&gt;
+&lt;button id="w13"&gt;取重複執行次數後, 列印出來&lt;/button&gt;
 
 &lt;pre class="brush: python"&gt;
 &lt;div id="container"&gt;&lt;/div&gt;
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 from browser import html
+# 利用 document 根據 div 標註 id 設為 container 變數
 container = doc['container']
-mystring = ""
-num = input("請輸入重複執行次數:")
-#for i in range(1, 11):
-for i in range(1, int(num)+1):
-    mystring += str(i) + ": hello mde" + html.BR()
-container &lt;= mystring
+
+# 因為此函式與滑鼠互動, 需要 event 當作輸入
+def numPrint(ev):
+    mystring = ""
+    num = input("請輸入重複執行次數:")
+    #for i in range(1, 11):
+    for i in range(1, int(num)+1):
+        mystring += str(i) + ": hello mde" + html.BR()
+    container &lt;= mystring
+
+# 與 id 為 'w13' 對應的 button 綁定, 且滑鼠 click 後, 呼叫 numPrint 函式執行
+doc['w13'].bind('click',numPrint)
 &lt;/script&gt;
+&lt;button id="w13"&gt;取重複執行次數後, 列印出來&lt;/button&gt;
 &lt;/pre&gt;
 
 開始進行範例分類:
@@ -571,26 +584,42 @@ input() 取回的資料為字串, 經過 int() 可以轉為整數
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 from browser import html
+# 利用 document 根據 div 標註 id 設為 container 變數
 container = doc['temperature']
-mystring = ""
-cdegree = input("請輸入攝氏溫度:")
-fdegree = float(cdegree)*9/5 + 32
-output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度"
-container &lt;= output_string
+
+# 因為此函式與滑鼠互動, 需要 event 當作輸入
+def convTemp(event):
+    mystring = ""
+    cdegree = input("請輸入攝氏溫度:")
+    fdegree = float(cdegree)*9/5 + 32
+    output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度" + html.BR()
+    container &lt;= output_string
+
+# 與 id 為 'w13-1' 對應的 button 綁定, 且滑鼠 click 後, 呼叫 convTemp 函式執行
+doc['w13-1'].bind('click',convTemp)
 &lt;/script&gt;
+&lt;button id="w13-1"&gt;取攝氏溫度, 轉為華氏溫度&lt;/button&gt;
 
 &lt;pre class="brush: python"&gt;
 &lt;div id="temperature"&gt;&lt;/div&gt;
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 from browser import html
+# 利用 document 根據 div 標註 id 設為 container 變數
 container = doc['temperature']
-mystring = ""
-cdegree = input("請輸入攝氏溫度:")
-fdegree = float(cdegree)*9/5 + 32
-output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度"
-container &lt;= output_string
+
+# 因為此函式與滑鼠互動, 需要 event 當作輸入
+def convTemp(event):
+    mystring = ""
+    cdegree = input("請輸入攝氏溫度:")
+    fdegree = float(cdegree)*9/5 + 32
+    output_string = "攝氏 " + str(cdegree) + "度=華氏 " + str(fdegree) + "度" + html.BR()
+    container &lt;= output_string
+
+# 與 id 為 'w13-1' 對應的 button 綁定, 且滑鼠 click 後, 呼叫 convTemp 函式執行
+doc['w13-1'].bind('click',convTemp)
 &lt;/script&gt;
+&lt;button id="w13-1"&gt;取攝氏溫度, 轉為華氏溫度&lt;/button&gt;
 &lt;/pre&gt;
 
 接受使用者的輸入
@@ -1157,7 +1186,7 @@ def domake():
                                    certfile='localhost.crt',
                                    keyfile='localhost.key',
                                    ssl_version=ssl.PROTOCOL_TLSv1)
-    print("5443 https server started")
+    print("6443 https server started")
     httpd.serve_forever()
 
 # 利用執行緒執行 https 伺服器
@@ -14619,51 +14648,6 @@ document['ch01'].bind('click',get_input)
 <t tx="yen.20161206160433.1">&lt;script type="text/python3"&gt;
 from browser import document
 from browser import alert
-
-'''
-    #02-01.py
-    total = 0.0
-    number1=float(input("Enter the first number: "))
-    total = total + number1
-    number2=float(input("Enter the second number: "))
-    total = total + number2
-    number3=float(input("Enter the third number: "))
-    total = total + number3
-    average = total / 3
-    print ("The average is " + str(average))
-    ################################################################
-    #                                                                    #
-    # 02-02.py                                                     #
-    # Purpose: to demonstrate storage of a floating point number   #
-    #                                                              #
-    # Programmer: Anne Dawson                                      #
-    # Last updated: Sunday 21st March 2010, 12:45 PT               #
-    #                                                              #
-    # See this resource to find out how the input function works:  #
-    # http://www.annedawson.net/Python3_Input.txt                  #
-    #                                                              #
-    # See this resource to find out how important comments are:    #
-    # http://www.annedawson.net/PythonComments.txt                 #
-    #                                                              #
-    ################################################################
-    number1=float(input("Enter the first number: "))
-    number2=float(input("Enter the second number: "))
-    number3=float(input("Enter the third number: "))
-    total = number1 + number2 + number3
-    average = total / 3
-    print ("The average is: ")
-    print (average)
-    #02-03.py
-    total = 0.0
-    count = 0
-    while count &lt; 3:
-        number=float(input("Enter a number: "))
-        count = count + 1
-        total = total + number
-    average = total / 3
-    print ("The average is " + str(average))
-'''
-
 &lt;/script&gt;</t>
 <t tx="yen.20161206160608.1"># Python3Programs.txt
 # anne.dawson@gmail.com

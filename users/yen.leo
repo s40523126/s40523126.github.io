@@ -175,6 +175,7 @@
 <v t="yen.20161206153930.1" a="E"><vh>@clean 20161206.md</vh>
 <v t="yen.20161206155939.1"><vh>ch01 print() 與 input()</vh></v>
 <v t="leo.20161209155611.1"><vh>cp a w13</vh></v>
+<v t="yen.20161212213816.1"><vh>Brython editor</vh></v>
 <v t="yen.20161206160433.1"><vh>ch02 str() 與 int() 與 float()</vh></v>
 </v>
 </v>
@@ -621,12 +622,7 @@ doc['w13-1'].bind('click',convTemp)
 &lt;/script&gt;
 &lt;button id="w13-1"&gt;取攝氏溫度, 轉為華氏溫度&lt;/button&gt;
 &lt;/pre&gt;
-
-接受使用者的輸入
-
-利用 alert() 顯示結果
-
-直接列印結果</t>
+</t>
 <t tx="yen.20161011114704.1">&lt;section data-markdown&gt;
     &lt;script type="text/template"&gt;
 @others
@@ -17138,5 +17134,131 @@ print (result)
 print (" 4! has a value of:",)
 result = factorial(4)
 print (result)</t>
+<t tx="yen.20161212213816.1">&lt;script src="./../ace/ace.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="./../ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="./../ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script type="text/python3"&gt;
+import sys
+import time
+import traceback
+import javascript
+
+from browser import document as doc, window, alert
+
+has_ace = True
+try:
+    editor = window.ace.edit("editor")
+    session = editor.getSession()
+    session.setMode("ace/mode/python")
+
+    editor.setOptions({
+     'enableLiveAutocompletion': True,
+     'enableSnippets': True,
+     'highlightActiveLine': False,
+     'highlightSelectedWord': True
+    })
+except:
+    from browser import html
+    editor = html.TEXTAREA(rows=20, cols=70)
+    doc["editor"] &lt;= editor
+    def get_value(): return editor.value
+    def set_value(x):editor.value = x
+    editor.getValue = get_value
+    editor.setValue = set_value
+    has_ace = False
+
+if hasattr(window, 'localStorage'):
+    from browser.local_storage import storage
+else:
+    storage = None
+
+def reset_src():
+    if storage is not None and "py_src" in storage:
+        editor.setValue(storage["py_src"])
+    else:
+        editor.setValue('for i in range(10):\n\tprint(i)')
+    editor.scrollToRow(0)
+    editor.gotoLine(0)
+
+def reset_src_area():
+    if storage and "py_src" in storage:
+        editor.value = storage["py_src"]
+    else:
+        editor.value = 'for i in range(10):\n\tprint(i)'
+
+class cOutput:
+
+    def write(self, data):
+        doc["console"].value += str(data)
+
+    def flush(self):
+        pass
+
+#if "console" in doc:
+sys.stdout = cOutput()
+sys.stderr = cOutput()
+
+def to_str(xx):
+    return str(xx)
+
+info = sys.implementation.version
+doc['version'].text = 'Brython %s.%s.%s' % (info.major, info.minor, info.micro)
+
+output = ''
+
+def show_console(ev):
+    doc["console"].value = output
+    doc["console"].cols = 60
+    doc["console"].rows = 10
+
+# load a Python script
+def load_script(evt):
+    _name = evt.target.value + '?foo=%s' % time.time()
+    editor.setValue(open(_name).read())
+
+# run a script, in global namespace if in_globals is True
+def run(*args):
+    global output
+    doc["console"].value = ''
+    src = editor.getValue()
+    if storage is not None:
+       storage["py_src"] = src
+
+    t0 = time.perf_counter()
+    try:
+        ns = {'__name__':'__main__'}
+        exec(src, ns)
+        state = 1
+    except Exception as exc:
+        traceback.print_exc(file=sys.stderr)
+        state = 0
+    output = doc["console"].value
+
+    print('&lt;completed in %6.2f ms&gt;' % ((time.perf_counter() - t0) * 1000.0))
+    return state
+
+if has_ace:
+    reset_src()
+else:
+    reset_src_area()
+    
+#doc["editor"] &lt;= "test"
+
+doc['run'].bind('click',run)
+doc['show_console'].bind('click',show_console)
+&lt;/script&gt;
+
+&lt;div id="version"&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+&lt;br /&gt;
+&lt;button id="run"&gt;Run&lt;/button&gt;
+&lt;button id="show_console"&gt;Python&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+</t>
 </tnodes>
 </leo_file>

@@ -4,6 +4,10 @@
 
 &lt;p&gt;以下為 &lt;a href="http://mde.tw/2016fallcp/course/Python3Programs.txt"&gt;http://mde.tw/2016fallcp/course/Python3Programs.txt&lt;/a&gt; 中的 ch01 綜合範例, 其餘範例位於本 Leo Editor 專案檔中的 "Python3 程式範例" 節點, 請各組一一將範例程式碼與執行結果, 放入各學員的課程網誌中.&lt;/p&gt;
 &lt;p&gt;本課程 W15 - W18 週將利用 &lt;a href="./../course/introduction_to_prog_python3_2012.pdf"&gt;introduction_to_prog_python3_2012.pdf&lt;/a&gt; 與 &lt;a href="./../course/python_for_everybody_2015.pdf"&gt;python_for_everybody_2015.pdf&lt;/a&gt; 中有關物件導向的說明, 並且配合 &lt;a href="https://github.com/mdecourse/webgame"&gt;https://github.com/mdecourse/webgame&lt;/a&gt; 倉儲中的 Leo Editor 專案, 希望各組能夠了解利用 Python3 與 Brython 語法處理&lt;a href="http://mde.tw/webgame/bs.html"&gt;靜態圖檔&lt;/a&gt;、&lt;a href="http://mde.tw/webgame/bunny.html"&gt;動態圖檔&lt;/a&gt;與&lt;a href="http://mde.tw/webgame/spacewar.html"&gt;網際遊戲&lt;/a&gt;的運作原理, 順利完成各組的期末報告.&lt;/p&gt;
+&lt;!-- 導入 FileSaver --&gt;
+
+&lt;script type="text/javascript" src="./../FileSaver.min.js"&gt;&lt;/script&gt;
+
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
 &lt;script type="text/javascript" 
@@ -291,6 +295,10 @@ doc['clear_console'].bind('click',clear_console)
 &lt;p&gt;&lt;br /&gt;
 &lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
 &lt;br /&gt;
+&lt;form id="text-options"&gt;
+    &lt;label&gt;Filename: &lt;input type="text" class="filename" id="text-filename" placeholder="a plain document"/&gt;.txt&lt;/label&gt;
+    &lt;input type="submit" value="Save"/&gt;
+&lt;/form&gt;
 &lt;button id="run"&gt;Run&lt;/button&gt;
 &lt;button id="show_console"&gt;Output&lt;/button&gt;
 &lt;button id="clear_console"&gt;清除&lt;/button&gt;
@@ -338,6 +346,8 @@ doc['ex2'].bind('click',ex2)
 &lt;/script&gt;
 
 &lt;p&gt;&lt;a id="ex2"&gt;ex2&lt;/a&gt; - input() 與函式定義進行溫度轉換&lt;/p&gt;
+&lt;!-- 請注意, 在 &lt;script&gt; 標註前一定要至少空一行 --&gt;
+
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 import script1
@@ -369,7 +379,26 @@ for i in range(1, 10):
 doc['ex3'].bind('click',ex3)
 &lt;/script&gt;
 
-&lt;p&gt;&lt;a id="ex3"&gt;ex3&lt;/a&gt; - 基本的物件導向範例
+&lt;p&gt;&lt;a id="ex3"&gt;ex3&lt;/a&gt; - 基本的物件導向範例&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import script1
+
+def ex4(ev):
+    script1.editor.setValue('''#ex4
+from browser.local_storage import storage
+# 列出 py_src 對應的儲存內容
+print(storage["py_src"])
+# 接著將要使用 FileSaver.js 將內容存在 local 區
+# https://github.com/eligrey/FileSaver.js/
+# https://eligrey.com/demos/FileSaver.js/
+    ''')
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+doc['ex4'].bind('click',ex4)
+&lt;/script&gt;
+
+&lt;p&gt;&lt;a id="ex4"&gt;ex4&lt;/a&gt; - 將程式在近端存檔
 &lt;script type="text/python3"&gt;
 from browser import document
 from browser import alert

@@ -179,6 +179,7 @@
 <v t="yen.20161214174443.1"><vh>ex1 - for 迴圈</vh></v>
 <v t="yen.20161214175500.1"><vh>ex2 - input 與單位換算</vh></v>
 <v t="yen.20161214173619.1"><vh>ex3 - 基本的物件導向</vh></v>
+<v t="yen.20161214183810.1"><vh>ex4 - local_storage</vh></v>
 <v t="yen.20161206160433.1"><vh>ch02 str() 與 int() 與 float()</vh></v>
 </v>
 </v>
@@ -14584,6 +14585,9 @@ Author: yen
 
 本課程 W15 - W18 週將利用 &lt;a href="./../course/introduction_to_prog_python3_2012.pdf"&gt;introduction_to_prog_python3_2012.pdf&lt;/a&gt; 與 &lt;a href="./../course/python_for_everybody_2015.pdf"&gt;python_for_everybody_2015.pdf&lt;/a&gt; 中有關物件導向的說明, 並且配合 &lt;a href="https://github.com/mdecourse/webgame"&gt;https://github.com/mdecourse/webgame&lt;/a&gt; 倉儲中的 Leo Editor 專案, 希望各組能夠了解利用 Python3 與 Brython 語法處理&lt;a href="http://mde.tw/webgame/bs.html"&gt;靜態圖檔&lt;/a&gt;、&lt;a href="http://mde.tw/webgame/bunny.html"&gt;動態圖檔&lt;/a&gt;與&lt;a href="http://mde.tw/webgame/spacewar.html"&gt;網際遊戲&lt;/a&gt;的運作原理, 順利完成各組的期末報告.
 
+&lt;!-- 導入 FileSaver --&gt;
+&lt;script type="text/javascript" src="./../FileSaver.min.js"&gt;&lt;/script&gt;
+
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
 &lt;script type="text/javascript" 
@@ -17260,6 +17264,10 @@ doc['clear_console'].bind('click',clear_console)
 &lt;br /&gt;
 &lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
 &lt;br /&gt;
+&lt;form id="text-options"&gt;
+    &lt;label&gt;Filename: &lt;input type="text" class="filename" id="text-filename" placeholder="a plain document"/&gt;.txt&lt;/label&gt;
+    &lt;input type="submit" value="Save"/&gt;
+&lt;/form&gt;
 &lt;button id="run"&gt;Run&lt;/button&gt;
 &lt;button id="show_console"&gt;Output&lt;/button&gt;
 &lt;button id="clear_console"&gt;清除&lt;/button&gt;
@@ -17269,6 +17277,7 @@ doc['clear_console'].bind('click',clear_console)
 &lt;div id="common"&gt;&lt;/div&gt;
 </t>
 <t tx="yen.20161214173619.1">
+&lt;!-- 請注意, 在 &lt;script&gt; 標註前一定要至少空一行 --&gt;
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 import script1
@@ -17340,5 +17349,23 @@ convTemp()
     script1.editor.gotoLine(0)
 doc['ex2'].bind('click',ex2)
 &lt;/script&gt;&lt;a id="ex2"&gt;ex2&lt;/a&gt; - input() 與函式定義進行溫度轉換</t>
+<t tx="yen.20161214183810.1">
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import script1
+
+def ex4(ev):
+    script1.editor.setValue('''#ex4
+from browser.local_storage import storage
+# 列出 py_src 對應的儲存內容
+print(storage["py_src"])
+# 接著將要使用 FileSaver.js 將內容存在 local 區
+# https://github.com/eligrey/FileSaver.js/
+# https://eligrey.com/demos/FileSaver.js/
+    ''')
+    script1.editor.scrollToRow(0)
+    script1.editor.gotoLine(0)
+doc['ex4'].bind('click',ex4)
+&lt;/script&gt;&lt;a id="ex4"&gt;ex4&lt;/a&gt; - 將程式在近端存檔</t>
 </tnodes>
 </leo_file>

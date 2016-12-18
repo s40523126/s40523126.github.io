@@ -6,7 +6,7 @@
 &lt;p&gt;本課程 W15 - W18 週將利用 &lt;a href="./../course/introduction_to_prog_python3_2012.pdf"&gt;introduction_to_prog_python3_2012.pdf&lt;/a&gt; 與 &lt;a href="./../course/python_for_everybody_2015.pdf"&gt;python_for_everybody_2015.pdf&lt;/a&gt; 中有關物件導向的說明, 並且配合 &lt;a href="https://github.com/mdecourse/webgame"&gt;https://github.com/mdecourse/webgame&lt;/a&gt; 倉儲中的 Leo Editor 專案, 希望各組能夠了解利用 Python3 與 Brython 語法處理&lt;a href="http://mde.tw/webgame/bs.html"&gt;靜態圖檔&lt;/a&gt;、&lt;a href="http://mde.tw/webgame/bunny.html"&gt;動態圖檔&lt;/a&gt;與&lt;a href="http://mde.tw/webgame/spacewar.html"&gt;網際遊戲&lt;/a&gt;的運作原理, 順利完成各組的期末報告.&lt;/p&gt;
 &lt;!-- 導入 FileSaver --&gt;
 
-&lt;script type="text/javascript" src="./../FileSaver.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="./../course/FileSaver.min.js"&gt;&lt;/script&gt;
 
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
@@ -176,6 +176,14 @@ doc['w13-1'].bind('click',convTemp)
 
 &lt;script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 
+&lt;script type="text/javascript"&gt;
+function doSave(){
+    var blob = new Blob([localStorage["py_src"]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById('filename').value
+    saveAs(blob, filename+".py");
+}
+&lt;/script&gt;
+
 &lt;script type="text/python3" id="script1"&gt;
 import sys
 import time
@@ -296,8 +304,8 @@ doc['clear_console'].bind('click',clear_console)
 &lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
 &lt;br /&gt;
 &lt;form id="text-options"&gt;
-    &lt;label&gt;Filename: &lt;input type="text" class="filename" id="text-filename" placeholder="a plain document"/&gt;.txt&lt;/label&gt;
-    &lt;input type="submit" value="Save"/&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave();"/&gt;
 &lt;/form&gt;
 &lt;button id="run"&gt;Run&lt;/button&gt;
 &lt;button id="show_console"&gt;Output&lt;/button&gt;

@@ -322,7 +322,7 @@ init_mathjax();
 <p>本課程 W15 - W18 週將利用 <a href="./../course/introduction_to_prog_python3_2012.pdf">introduction_to_prog_python3_2012.pdf</a> 與 <a href="./../course/python_for_everybody_2015.pdf">python_for_everybody_2015.pdf</a> 中有關物件導向的說明, 並且配合 <a href="https://github.com/mdecourse/webgame">https://github.com/mdecourse/webgame</a> 倉儲中的 Leo Editor 專案, 希望各組能夠了解利用 Python3 與 Brython 語法處理<a href="http://mde.tw/webgame/bs.html">靜態圖檔</a>、<a href="http://mde.tw/webgame/bunny.html">動態圖檔</a>與<a href="http://mde.tw/webgame/spacewar.html">網際遊戲</a>的運作原理, 順利完成各組的期末報告.</p>
 <!-- 導入 FileSaver -->
 
-<script type="text/javascript" src="./../FileSaver.min.js"></script>
+<script type="text/javascript" src="./../course/FileSaver.min.js"></script>
 
 <!-- 導入 Brython 標準程式庫 -->
 
@@ -492,6 +492,14 @@ doc['w13-1'].bind('click',convTemp)
 
 <script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"></script>
 
+<script type="text/javascript">
+function doSave(){
+    var blob = new Blob([localStorage["py_src"]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById('filename').value
+    saveAs(blob, filename+".py");
+}
+</script>
+
 <script type="text/python3" id="script1">
 import sys
 import time
@@ -612,8 +620,8 @@ doc['clear_console'].bind('click',clear_console)
 <div id="editor" style="width:600px;height:300px;"></div>
 <br />
 <form id="text-options">
-    <label>Filename: <input type="text" class="filename" id="text-filename" placeholder="a plain document"/>.txt</label>
-    <input type="submit" value="Save"/>
+    <label>Filename: <input type="text" id="filename" placeholder="input file name"/>.py</label>
+    <input type="submit" value="Save" onclick="doSave();"/>
 </form>
 <button id="run">Run</button>
 <button id="show_console">Output</button>

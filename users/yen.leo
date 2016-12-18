@@ -203,14 +203,19 @@
 <v t="yen.20161105200154.1"><vh>@edit agroup.txt</vh></v>
 <v t="yen.20161105200234.1"><vh>@edit bgroup.txt</vh></v>
 </v>
-<v t="yen.20161206160608.1"><vh>Python3 程式範例</vh></v>
+<v t="yen.20161206160608.1" a="E"><vh>Python3 程式範例</vh>
+<v t="yen.20161217100630.1"><vh>俄羅斯方塊</vh></v>
+<v t="yen.20161217100709.1"><vh>滑鼠畫線</vh></v>
+<v t="yen.20161217100801.1"><vh>動態模擬</vh></v>
+<v t="yen.20161217100836.1"><vh>基本視窗</vh></v>
+</v>
 <v t="yen.20161121232203.1"><vh>SVGChordV2_2</vh>
 <v t="yen.20161121232203.2"><vh>example</vh></v>
 <v t="yen.20161121232203.3"><vh>ChordsDefs.xml</vh></v>
 <v t="yen.20161121232203.4"><vh>genchord.py</vh></v>
-</v>
 <v t="yen.20161129153123.1"><vh>和絃參考</vh></v>
 <v t="yen.20161129153338.1"><vh>音符參考</vh></v>
+</v>
 </vnodes>
 <tnodes>
 <t tx="amd.20151215170031.1"></t>
@@ -14587,7 +14592,7 @@ Author: yen
 本課程 W15 - W18 週將利用 &lt;a href="./../course/introduction_to_prog_python3_2012.pdf"&gt;introduction_to_prog_python3_2012.pdf&lt;/a&gt; 與 &lt;a href="./../course/python_for_everybody_2015.pdf"&gt;python_for_everybody_2015.pdf&lt;/a&gt; 中有關物件導向的說明, 並且配合 &lt;a href="https://github.com/mdecourse/webgame"&gt;https://github.com/mdecourse/webgame&lt;/a&gt; 倉儲中的 Leo Editor 專案, 希望各組能夠了解利用 Python3 與 Brython 語法處理&lt;a href="http://mde.tw/webgame/bs.html"&gt;靜態圖檔&lt;/a&gt;、&lt;a href="http://mde.tw/webgame/bunny.html"&gt;動態圖檔&lt;/a&gt;與&lt;a href="http://mde.tw/webgame/spacewar.html"&gt;網際遊戲&lt;/a&gt;的運作原理, 順利完成各組的期末報告.
 
 &lt;!-- 導入 FileSaver --&gt;
-&lt;script type="text/javascript" src="./../FileSaver.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="./../course/FileSaver.min.js"&gt;&lt;/script&gt;
 
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
@@ -17146,6 +17151,14 @@ print (result)</t>
 &lt;script src="./../ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 &lt;script src="./../ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 &lt;script src="./../ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--&gt;
+&lt;script type="text/javascript"&gt;
+function doSave(){
+    var blob = new Blob([localStorage["py_src"]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById('filename').value
+    saveAs(blob, filename+".py");
+}
+&lt;/script&gt;
 
 &lt;script type="text/python3" id="script1"&gt;
 import sys
@@ -17265,9 +17278,10 @@ doc['clear_console'].bind('click',clear_console)
 &lt;br /&gt;
 &lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
 &lt;br /&gt;
-&lt;form id="text-options"&gt;
-    &lt;label&gt;Filename: &lt;input type="text" class="filename" id="text-filename" placeholder="a plain document"/&gt;.txt&lt;/label&gt;
-    &lt;input type="submit" value="Save"/&gt;
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式互相配合 --&gt;
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave();"/&gt;
 &lt;/form&gt;
 &lt;button id="run"&gt;Run&lt;/button&gt;
 &lt;button id="show_console"&gt;Output&lt;/button&gt;
@@ -17586,5 +17600,619 @@ main()
 doc['exz'].bind('click',exz)
 &lt;/script&gt;&lt;a id="exz"&gt;exz&lt;/a&gt; - fourbar 連桿機構運動路徑計算
 </t>
+<t tx="yen.20161217100630.1"># -*- coding: utf-8 -*-
+ 
+"""
+ZetCode PyQt4 tutorial 
+ 
+This is a Tetris game clone.
+ 
+author: Jan Bodnar
+website: zetcode.com 
+last edited: October 2013
+"""
+ 
+import sys, random
+from PyQt4 import QtCore, QtGui
+ 
+ 
+class Tetris(QtGui.QMainWindow):
+     
+    def __init__(self):
+        super(Tetris, self).__init__()
+         
+        self.initUI()
+         
+         
+    def initUI(self):    
+ 
+        self.tboard = Board(self)
+        self.setCentralWidget(self.tboard)
+ 
+        self.statusbar = self.statusBar()        
+        self.tboard.msg2Statusbar[str].connect(self.statusbar.showMessage)
+         
+        self.tboard.start()
+         
+        self.resize(180, 380)
+        self.center()
+        self.setWindowTitle('Tetris')        
+        self.show()
+         
+ 
+    def center(self):
+         
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, 
+            (screen.height()-size.height())/2)
+         
+ 
+class Board(QtGui.QFrame):
+     
+    msg2Statusbar = QtCore.pyqtSignal(str)
+     
+    BoardWidth = 10
+    BoardHeight = 22
+    Speed = 300
+ 
+    def __init__(self, parent):
+        super(Board, self).__init__(parent)
+         
+        self.initBoard()
+         
+         
+    def initBoard(self):     
+ 
+        self.timer = QtCore.QBasicTimer()
+        self.isWaitingAfterLine = False
+         
+        self.curX = 0
+        self.curY = 0
+        self.numLinesRemoved = 0
+        self.board = []
+ 
+        self.setFocusPolicy(QtCore.Qt.StrongFocus)
+        self.isStarted = False
+        self.isPaused = False
+        self.clearBoard()
+         
+         
+    def shapeAt(self, x, y):
+        return self.board[int((y * Board.BoardWidth) + x)]
+ 
+         
+    def setShapeAt(self, x, y, shape):
+        self.board[int((y * Board.BoardWidth) + x)] = shape
+         
+ 
+    def squareWidth(self):
+        return self.contentsRect().width() / Board.BoardWidth
+         
+ 
+    def squareHeight(self):
+        return self.contentsRect().height() / Board.BoardHeight
+         
+ 
+    def start(self):
+         
+        if self.isPaused:
+            return
+ 
+        self.isStarted = True
+        self.isWaitingAfterLine = False
+        self.numLinesRemoved = 0
+        self.clearBoard()
+ 
+        self.msg2Statusbar.emit(str(self.numLinesRemoved))
+ 
+        self.newPiece()
+        self.timer.start(Board.Speed, self)
+ 
+         
+    def pause(self):
+         
+        if not self.isStarted:
+            return
+ 
+        self.isPaused = not self.isPaused
+         
+        if self.isPaused:
+            self.timer.stop()
+            self.msg2Statusbar.emit("paused")
+             
+        else:
+            self.timer.start(Board.Speed, self)
+            self.msg2Statusbar.emit(str(self.numLinesRemoved))
+ 
+        self.update()
+ 
+         
+    def paintEvent(self, event):
+         
+        painter = QtGui.QPainter(self)
+        rect = self.contentsRect()
+ 
+        boardTop = rect.bottom() - Board.BoardHeight * self.squareHeight()
+ 
+        for i in range(Board.BoardHeight):
+            for j in range(Board.BoardWidth):
+                shape = self.shapeAt(j, Board.BoardHeight - i - 1)
+                 
+                if shape != Tetrominoe.NoShape:
+                    self.drawSquare(painter,
+                        rect.left() + j * self.squareWidth(),
+                        boardTop + i * self.squareHeight(), shape)
+ 
+        if self.curPiece.shape() != Tetrominoe.NoShape:
+             
+            for i in range(4):
+                 
+                x = self.curX + self.curPiece.x(i)
+                y = self.curY - self.curPiece.y(i)
+                self.drawSquare(painter, rect.left() + x * self.squareWidth(),
+                    boardTop + (Board.BoardHeight - y - 1) * self.squareHeight(),
+                    self.curPiece.shape())
+ 
+                     
+    def keyPressEvent(self, event):
+         
+        if not self.isStarted or self.curPiece.shape() == Tetrominoe.NoShape:
+            super(Board, self).keyPressEvent(event)
+            return
+ 
+        key = event.key()
+         
+        if key == QtCore.Qt.Key_P:
+            self.pause()
+            return
+             
+        if self.isPaused:
+            return
+                 
+        elif key == QtCore.Qt.Key_Left:
+            self.tryMove(self.curPiece, self.curX - 1, self.curY)
+             
+        elif key == QtCore.Qt.Key_Right:
+            self.tryMove(self.curPiece, self.curX + 1, self.curY)
+             
+        elif key == QtCore.Qt.Key_Down:
+            self.tryMove(self.curPiece.rotateRight(), self.curX, self.curY)
+             
+        elif key == QtCore.Qt.Key_Up:
+            self.tryMove(self.curPiece.rotateLeft(), self.curX, self.curY)
+             
+        elif key == QtCore.Qt.Key_Space:
+            self.dropDown()
+             
+        elif key == QtCore.Qt.Key_D:
+            self.oneLineDown()
+             
+        else:
+            super(Board, self).keyPressEvent(event)
+                 
+ 
+    def timerEvent(self, event):
+         
+        if event.timerId() == self.timer.timerId():
+             
+            if self.isWaitingAfterLine:
+                self.isWaitingAfterLine = False
+                self.newPiece()
+            else:
+                self.oneLineDown()
+                 
+        else:
+            super(Board, self).timerEvent(event)
+ 
+             
+    def clearBoard(self):
+         
+        for i in range(Board.BoardHeight * Board.BoardWidth):
+            self.board.append(Tetrominoe.NoShape)
+ 
+         
+    def dropDown(self):
+         
+        newY = self.curY
+         
+        while newY &gt; 0:
+             
+            if not self.tryMove(self.curPiece, self.curX, newY - 1):
+                break
+                 
+            newY -= 1
+ 
+        self.pieceDropped()
+         
+ 
+    def oneLineDown(self):
+         
+        if not self.tryMove(self.curPiece, self.curX, self.curY - 1):
+            self.pieceDropped()
+             
+ 
+    def pieceDropped(self):
+         
+        for i in range(4):
+             
+            x = self.curX + self.curPiece.x(i)
+            y = self.curY - self.curPiece.y(i)
+            self.setShapeAt(x, y, self.curPiece.shape())
+ 
+        self.removeFullLines()
+ 
+        if not self.isWaitingAfterLine:
+            self.newPiece()
+             
+ 
+    def removeFullLines(self):
+         
+        numFullLines = 0
+        rowsToRemove = []
+ 
+        for i in range(Board.BoardHeight):
+             
+            n = 0
+            for j in range(Board.BoardWidth):
+                if not self.shapeAt(j, i) == Tetrominoe.NoShape:
+                    n = n + 1
+ 
+            if n == 10:
+                rowsToRemove.append(i)
+ 
+        rowsToRemove.reverse()
+         
+ 
+        for m in rowsToRemove:
+             
+            for k in range(m, Board.BoardHeight):
+                for l in range(Board.BoardWidth):
+                        self.setShapeAt(l, k, self.shapeAt(l, k + 1))
+ 
+        numFullLines = numFullLines + len(rowsToRemove)
+ 
+        if numFullLines &gt; 0:
+             
+            self.numLinesRemoved = self.numLinesRemoved + numFullLines
+            self.msg2Statusbar.emit(str(self.numLinesRemoved))
+                 
+            self.isWaitingAfterLine = True
+            self.curPiece.setShape(Tetrominoe.NoShape)
+            self.update()
+             
+ 
+    def newPiece(self):
+         
+        self.curPiece = Shape()
+        self.curPiece.setRandomShape()
+        self.curX = Board.BoardWidth / 2 + 1
+        self.curY = Board.BoardHeight - 1 + self.curPiece.minY()
+         
+        #print self.curY
+ 
+        if not self.tryMove(self.curPiece, self.curX, self.curY):
+             
+            self.curPiece.setShape(Tetrominoe.NoShape)
+            self.timer.stop()
+            self.isStarted = False
+            self.msg2Statusbar.emit("Game over")
+ 
+ 
+ 
+    def tryMove(self, newPiece, newX, newY):
+         
+        for i in range(4):
+             
+            x = newX + newPiece.x(i)
+            y = newY - newPiece.y(i)
+             
+            if x &lt; 0 or x &gt;= Board.BoardWidth or y &lt; 0 or y &gt;= Board.BoardHeight:
+                return False
+                 
+            if self.shapeAt(x, y) != Tetrominoe.NoShape:
+                return False
+ 
+        self.curPiece = newPiece
+        self.curX = newX
+        self.curY = newY
+        self.update()
+         
+        return True
+         
+ 
+    def drawSquare(self, painter, x, y, shape):
+         
+        colorTable = [0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+                      0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00]
+ 
+        color = QtGui.QColor(colorTable[shape])
+        painter.fillRect(x + 1, y + 1, self.squareWidth() - 2, 
+            self.squareHeight() - 2, color)
+ 
+        painter.setPen(color.light())
+        painter.drawLine(x, y + self.squareHeight() - 1, x, y)
+        painter.drawLine(x, y, x + self.squareWidth() - 1, y)
+ 
+        painter.setPen(color.dark())
+        painter.drawLine(x + 1, y + self.squareHeight() - 1,
+            x + self.squareWidth() - 1, y + self.squareHeight() - 1)
+        painter.drawLine(x + self.squareWidth() - 1, 
+            y + self.squareHeight() - 1, x + self.squareWidth() - 1, y + 1)
+ 
+ 
+class Tetrominoe(object):
+     
+    NoShape = 0
+    ZShape = 1
+    SShape = 2
+    LineShape = 3
+    TShape = 4
+    SquareShape = 5
+    LShape = 6
+    MirroredLShape = 7
+ 
+ 
+class Shape(object):
+     
+    coordsTable = (
+        ((0, 0),     (0, 0),     (0, 0),     (0, 0)),
+        ((0, -1),    (0, 0),     (-1, 0),    (-1, 1)),
+        ((0, -1),    (0, 0),     (1, 0),     (1, 1)),
+        ((0, -1),    (0, 0),     (0, 1),     (0, 2)),
+        ((-1, 0),    (0, 0),     (1, 0),     (0, 1)),
+        ((0, 0),     (1, 0),     (0, 1),     (1, 1)),
+        ((-1, -1),   (0, -1),    (0, 0),     (0, 1)),
+        ((1, -1),    (0, -1),    (0, 0),     (0, 1))
+    )
+ 
+    def __init__(self):
+         
+        self.coords = [[0,0] for i in range(4)]
+        self.pieceShape = Tetrominoe.NoShape
+ 
+        self.setShape(Tetrominoe.NoShape)
+         
+ 
+    def shape(self):
+        return self.pieceShape
+         
+ 
+    def setShape(self, shape):
+         
+        table = Shape.coordsTable[shape]
+         
+        for i in range(4):
+            for j in range(2):
+                self.coords[i][j] = table[i][j]
+ 
+        self.pieceShape = shape
+         
+ 
+    def setRandomShape(self):
+        self.setShape(random.randint(1, 7))
+ 
+         
+    def x(self, index):
+        return self.coords[index][0]
+ 
+         
+    def y(self, index):
+        return self.coords[index][1]
+ 
+         
+    def setX(self, index, x):
+        self.coords[index][0] = x
+ 
+         
+    def setY(self, index, y):
+        self.coords[index][1] = y
+ 
+         
+    def minX(self):
+         
+        m = self.coords[0][0]
+        for i in range(4):
+            m = min(m, self.coords[i][0])
+ 
+        return m
+ 
+         
+    def maxX(self):
+         
+        m = self.coords[0][0]
+        for i in range(4):
+            m = max(m, self.coords[i][0])
+ 
+        return m
+ 
+         
+    def minY(self):
+         
+        m = self.coords[0][1]
+        for i in range(4):
+            m = min(m, self.coords[i][1])
+ 
+        return m
+ 
+         
+    def maxY(self):
+         
+        m = self.coords[0][1]
+        for i in range(4):
+            m = max(m, self.coords[i][1])
+ 
+        return m
+ 
+         
+    def rotateLeft(self):
+         
+        if self.pieceShape == Tetrominoe.SquareShape:
+            return self
+ 
+        result = Shape()
+        result.pieceShape = self.pieceShape
+         
+        for i in range(4):
+             
+            result.setX(i, self.y(i))
+            result.setY(i, -self.x(i))
+ 
+        return result
+ 
+         
+    def rotateRight(self):
+         
+        if self.pieceShape == Tetrominoe.SquareShape:
+            return self
+ 
+        result = Shape()
+        result.pieceShape = self.pieceShape
+         
+        for i in range(4):
+             
+            result.setX(i, -self.y(i))
+            result.setY(i, self.x(i))
+ 
+        return result
+ 
+ 
+def main():
+     
+    app = QtGui.QApplication([])
+    tetris = Tetris()    
+    sys.exit(app.exec_())
+ 
+ 
+if __name__ == '__main__':
+    main()</t>
+<t tx="yen.20161217100709.1">from PyQt4 import QtGui, QtCore
+ 
+class Window(QtGui.QWidget):
+    def __init__(self):
+        QtGui.QWidget.__init__(self)
+        self.view = View(self)
+        self.button = QtGui.QPushButton('Clear View', self)
+        self.button.clicked.connect(self.handleClearView)
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.view)
+        layout.addWidget(self.button)
+ 
+    def handleClearView(self):
+        self.view.scene().clear()
+ 
+class View(QtGui.QGraphicsView):
+    def __init__(self, parent):
+        QtGui.QGraphicsView.__init__(self, parent)
+        self.setScene(QtGui.QGraphicsScene(self))
+        self.setSceneRect(QtCore.QRectF(self.viewport().rect()))
+ 
+    def mousePressEvent(self, event):
+        self._start = event.pos()
+ 
+    def mouseReleaseEvent(self, event):
+        start = QtCore.QPointF(self.mapToScene(self._start))
+        end = QtCore.QPointF(self.mapToScene(event.pos()))
+        self.scene().addItem(
+            QtGui.QGraphicsLineItem(QtCore.QLineF(start, end)))
+        for point in (start, end):
+            text = self.scene().addSimpleText(
+                '(%d, %d)' % (point.x(), point.y()))
+            text.setBrush(QtCore.Qt.red)
+            text.setPos(point)
+ 
+if __name__ == '__main__':
+ 
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    window = Window()
+    window.resize(640, 480)
+    window.show()
+    sys.exit(app.exec_())</t>
+<t tx="yen.20161217100801.1">import sys    
+ 
+from PyQt4.QtGui import QApplication , QGraphicsEllipseItem , QGraphicsItemAnimation
+from PyQt4.QtGui import QGraphicsScene , QGraphicsView
+from PyQt4.QtCore import SIGNAL , QPointF , QTimeLine
+ 
+app = QApplication( sys.argv )
+ 
+# create a graphicsview with a moving ball...
+ball = QGraphicsEllipseItem(0, 0, 20, 20)
+       
+timer = QTimeLine(5000)
+timer.setFrameRange(0, 100)
+ 
+animation = QGraphicsItemAnimation()
+animation.setItem(ball)
+animation.setTimeLine(timer)
+ 
+for i in range( 200 ) : 
+    animation.setPosAt(i / 200.0, QPointF(i, i))
+ 
+scene = QGraphicsScene()
+scene.setSceneRect(0, 0, 250, 250)
+scene.addItem(ball)
+ 
+view = QGraphicsView(scene)
+view.show()
+ 
+timer.start()
+ 
+app.exec_()</t>
+<t tx="yen.20161217100836.1"># -*- coding: utf-8 -*-
+# import sys
+from PyQt4 import QtGui, QtCore
+wid,hgt = 600,400
+x0,x1,y0=100,wid-150,250
+ 
+def start():
+    global sce,inn
+    ap=QtGui.QApplication([])
+    win=QtGui.QWidget()
+    layh = QtGui.QHBoxLayout()
+    layv=QtGui.QVBoxLayout()
+    sce=QtGui.QGraphicsScene(
+        QtCore.QRectF(0, 0, wid, hgt))
+    view=QtGui.QGraphicsView(sce,win)
+    inn=QtGui.QLineEdit("6",win)
+    gbut = QtGui.QPushButton("Go",win)
+    cbut = QtGui.QPushButton("Clear",win)
+    view.setMinimumSize(wid+20,hgt+20)
+    ap.connect(gbut, QtCore.SIGNAL("clicked()"), go)
+    ap.connect(cbut, QtCore.SIGNAL("clicked()"), clear)
+    win.connect(inn, QtCore.SIGNAL("returnPressed()"), go)
+    layh.addWidget(view)
+    layv.addWidget(inn)
+    layv.addWidget(gbut); layv.addWidget(cbut)
+    layv.setGeometry(QtCore.QRect(0, 0, 20, hgt))
+    layh.addLayout(layv)
+    win.setLayout(layh)
+    dessin(sce,6)
+    win.show(); ap.exec_()
+ 
+def rdragon(x0,y0,x1,y1,n,tr=False):
+    if n==0: return ([x0,x1],[y0,y1])
+    if tr: x,y = 0.5*(x0+x1+y0-y1),0.5*(y0+y1+x1-x0)
+    else:  x,y = 0.5*(x0+x1-y0+y1),0.5*(y0+y1-x1+x0)
+    xa,ya=rdragon(x0,y0,x,y,n-1,True)
+    xb,yb=rdragon(x,y,x1,y1,n-1,False)
+    x=xa+xb[1:]; y=ya+yb[1:]
+    return(x,y)
+def dessin(scene,n):
+    global x0,x1,y0
+    l=rdragon(x0,y0,x1,y0,n)
+    (xi,yi),*p = zip(*l)
+    for (x,y) in p:
+        scene.addLine(xi,yi,x,y,QtGui.QColor(200,0,0)); xi,yi=x,y
+ 
+def go(): 
+    t=inn.text()
+    if t=="": t="0"
+    dessin(sce,int(t))
+     
+def clear(): sce.clear()
+ 
+start()</t>
 </tnodes>
 </leo_file>

@@ -172,7 +172,7 @@
 <v t="leo.20161121143827.1"><vh>@edit 20161121.md</vh></v>
 <v t="leo.20161202144814.1"><vh>@edit 20161202.md</vh></v>
 <v t="yen.20161204154404.1"><vh>@edit 20161204.md</vh></v>
-<v t="yen.20161206153930.1" a="E"><vh>@clean 20161206.md</vh>
+<v t="yen.20161206153930.1"><vh>@clean 20161206.md</vh>
 <v t="yen.20161206155939.1"><vh>ch01 print() 與 input()</vh></v>
 <v t="leo.20161209155611.1"><vh>cp a w13</vh></v>
 <v t="yen.20161212213816.1"><vh>Brython editor</vh></v>
@@ -183,6 +183,7 @@
 <v t="yen.20161217090307.1"><vh>exz - fourbar track</vh></v>
 <v t="yen.20161206160433.1"><vh>ch02 str() 與 int() 與 float()</vh></v>
 </v>
+<v t="leo.20161223150700.1"><vh>@edit 20161223.md</vh></v>
 </v>
 </v>
 </v>
@@ -1185,14 +1186,14 @@ import http.server, ssl
 def domake():
     # build directory
     os.chdir("./../")
-    server_address = ('localhost', 6443)
+    server_address = ('192.168.1.44', 7443)
     httpd = http.server.HTTPServer(server_address, http.server.SimpleHTTPRequestHandler)
     httpd.socket = ssl.wrap_socket(httpd.socket,
                                    server_side=True,
                                    certfile='localhost.crt',
                                    keyfile='localhost.key',
                                    ssl_version=ssl.PROTOCOL_TLSv1)
-    print("6443 https server started")
+    print("7443 https server started")
     httpd.serve_forever()
 
 # 利用執行緒執行 https 伺服器

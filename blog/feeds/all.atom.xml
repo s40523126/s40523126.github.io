@@ -1654,11 +1654,7 @@ animate(0)
 &lt;p&gt;計算機程式甲班成員連結:&lt;/p&gt;
 &lt;!-- 導入 Brython 標準程式庫 --&gt;
 
-&lt;!-- &lt;script type="text/javascript" 
-    src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython_dist.js"&gt; --&gt;
-
-&lt;script type="text/javascript" 
-    src="https://cdn.rawgit.com/brython-dev/brython/3.2.9/www/src/brython_dist.js"&gt;
+&lt;script type="text/javascript" src="https://cdn.rawgit.com/brython-dev/brython/3.2.9/www/src/brython_dist.js"&gt;
 &lt;/script&gt;
 
 &lt;!-- 啟動 Brython --&gt;
@@ -1699,7 +1695,9 @@ for stud_num in alist:
 
 &lt;script type="text/python3" id="script2"&gt;
 from browser import document, html
-from script1 import alist
+#from script1 import alist
+adata = open("./../users/a.txt").read()
+alist = adata.splitlines()
 container2 = document['container2']
 n = 0
 for stud_num in alist:
@@ -1717,7 +1715,9 @@ for stud_num in alist:
 
 &lt;script type="text/python3" id="script3"&gt;
 from browser import document, html
-from script1 import alist
+#from script1 import alist
+adata = open("./../users/a.txt").read()
+alist = adata.splitlines()
 container3 = document['container3']
 n = 0
 for stud_num in alist:
@@ -1735,7 +1735,9 @@ for stud_num in alist:
 
 &lt;script type="text/python3" id="script4"&gt;
 from browser import document, html
-from script1 import alist
+#from script1 import alist
+adata = open("./../users/a.txt").read()
+alist = adata.splitlines()
 container4 = document['container4']
 n = 0
 for stud_num in alist:
@@ -1773,7 +1775,8 @@ for stud_num in alist:
 
 &lt;script type="text/python3" id="script6"&gt;
 from browser import document, html
-from script5 import alist
+adata = open("./../users/b.txt").read()
+alist = adata.splitlines()
 container6 = document['container6']
 n = 0
 for stud_num in alist:
@@ -1791,7 +1794,8 @@ for stud_num in alist:
 
 &lt;script type="text/python3" id="script7"&gt;
 from browser import document, html
-from script5 import alist
+adata = open("./../users/b.txt").read()
+alist = adata.splitlines()
 container7 = document['container7']
 n = 0
 for stud_num in alist:
@@ -1809,7 +1813,8 @@ for stud_num in alist:
 
 &lt;script type="text/python3" id="script8"&gt;
 from browser import document, html
-from script5 import alist
+adata = open("./../users/b.txt").read()
+alist = adata.splitlines()
 container8 = document['container8']
 n = 0
 for stud_num in alist:

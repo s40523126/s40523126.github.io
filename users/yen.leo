@@ -172,7 +172,7 @@
 <v t="leo.20161121143827.1"><vh>@edit 20161121.md</vh></v>
 <v t="leo.20161202144814.1"><vh>@edit 20161202.md</vh></v>
 <v t="yen.20161204154404.1"><vh>@edit 20161204.md</vh></v>
-<v t="yen.20161206153930.1"><vh>@clean 20161206.md</vh>
+<v t="yen.20161206153930.1" a="E"><vh>@clean 20161206.md</vh>
 <v t="yen.20161206155939.1"><vh>ch01 print() 與 input()</vh></v>
 <v t="leo.20161209155611.1"><vh>cp a w13</vh></v>
 <v t="yen.20161212213816.1"><vh>Brython editor</vh></v>
@@ -562,8 +562,7 @@ doc['w13'].bind('click',numPrint)
 &lt;/script&gt;
 &lt;button id="w13"&gt;取重複執行次數後, 列印出來&lt;/button&gt;
 
-&lt;pre class="brush: python"&gt;
-&lt;div id="container"&gt;&lt;/div&gt;
+&lt;pre class="brush: python"&gt;&lt;div id="container"&gt;&lt;/div&gt;
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 from browser import html
@@ -613,8 +612,7 @@ doc['w13-1'].bind('click',convTemp)
 &lt;/script&gt;
 &lt;button id="w13-1"&gt;取攝氏溫度, 轉為華氏溫度&lt;/button&gt;
 
-&lt;pre class="brush: python"&gt;
-&lt;div id="temperature"&gt;&lt;/div&gt;
+&lt;pre class="brush: python"&gt;&lt;div id="temperature"&gt;&lt;/div&gt;
 &lt;script type="text/python3"&gt;
 from browser import document as doc
 from browser import html
@@ -14643,8 +14641,7 @@ document['ch01'].bind('click',get_input)
 &lt;/script&gt;
 &lt;button id="ch01"&gt;取輸入後, 列印出來&lt;/button&gt;
 
-&lt;pre class="brush: python"&gt;
-&lt;script type="text/python3"&gt;
+&lt;pre class="brush: python"&gt;&lt;script type="text/python3"&gt;
 from browser import document
 from browser import alert
 

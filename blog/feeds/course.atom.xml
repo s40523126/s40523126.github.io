@@ -37,13 +37,13 @@ def gen_int():
 def lottery(e):
     for i in range(6):
         gen_int()
-    print_location &lt;= "恭喜中獎!" + html.BR()
+    print_location &lt;= "(可能重複)恭喜中獎!" + html.BR()
 
 #document["but1"].bind("click", gen_int)
 document["but1"].bind("click", lottery)
 &lt;/script&gt;
 
-&lt;p&gt;&lt;button id="but1"&gt;產生整數亂數&lt;/button&gt;&lt;/p&gt;
+&lt;p&gt;&lt;button id="but1"&gt;產生 1-49 整數亂數 (可能重複)&lt;/button&gt;&lt;/p&gt;
 &lt;pre class="brush: python"&gt;
 &lt;div id="newyear"&gt;&lt;/div&gt;
 &lt;script type="text/python3"&gt;
@@ -61,12 +61,12 @@ def gen_int():
 def lottery(e):
     for i in range(6):
         gen_int()
-    print_location &lt;= "恭喜中獎!" + html.BR()
+    print_location &lt;= "(可能重複)恭喜中獎!" + html.BR()
 
 #document["but1"].bind("click", gen_int)
 document["but1"].bind("click", lottery)
 &lt;/script&gt;
-&lt;button id="but1"&gt;產生整數亂數&lt;/button&gt;
+&lt;button id="but1"&gt;產生 1-49 整數亂數 (可能重複)&lt;/button&gt;
 &lt;/pre&gt;
 
 &lt;p&gt;因為上述程式可能會產生相同的號碼, 改用&lt;a href="https://docs.python.org/3/library/random.html#random.sample"&gt; random.sample()&lt;/a&gt;, 使其產生六個不同的整數!!&lt;/p&gt;
@@ -80,12 +80,12 @@ def lottery(e):
     num_list = random.sample(list(range(1, 50)), 6)
     for i in range(6):
         print_location &lt;= num_list[i] + html.BR()
-    print_location &lt;= "恭喜中獎!" + html.BR()
+    print_location &lt;= "(不會重複)恭喜中獎!" + html.BR()
 
 document["but2"].bind("click", lottery)
 &lt;/script&gt;
 
-&lt;p&gt;&lt;button id="but2"&gt;恭喜中獎&lt;/button&gt;&lt;/p&gt;
+&lt;p&gt;&lt;button id="but2"&gt;(不會重複)恭喜中獎&lt;/button&gt;&lt;/p&gt;
 &lt;pre class="brush: python"&gt;
 &lt;script type="text/python3"&gt;
 from browser import document
@@ -97,7 +97,7 @@ def lottery(e):
     num_list = random.sample(list(range(1, 50)), 6)
     for i in range(6):
         print_location &lt;= num_list[i] + html.BR()
-    print_location &lt;= "恭喜中獎!" + html.BR()
+    print_location &lt;= "(不會重複)恭喜中獎!" + html.BR()
 
 document["but2"].bind("click", lottery)
 &lt;/script&gt;

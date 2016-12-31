@@ -2,7 +2,7 @@
 <html lang="en"
 >
 <head>
-    <title>About - 2016Fall 計算機程式課程網誌 (虎尾科大MDE)</title>
+    <title>Brython Canvas 繪圖 - 2016Fall 計算機程式課程網誌 (虎尾科大MDE)</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,27 +166,32 @@ init_mathjax = function() {
 init_mathjax();
 </script>
 
-<link rel="canonical" href="../../pages/about/">
+<link rel="canonical" href="./brython-canvas-hui-tu.html">
 
-        <meta name="author" content="KMOL" />
-        <meta name="description" content="2016Fall 計算機程式課程網誌 本課程主要教導機械設計工程系大一學生下列內容: 如何利用 Github 管理電腦檔案. 如何利用 Python3 與 Brython 程式處理檔案資料. 如何利用 Brython 程式進行網際靜態與動態繪製. 課程倉儲: http://github.com/mdecourse/2016fallcp 課程投影片: http://mdecourse.github.io/2016fallcp 課程網誌: http://mdecourse.github.io/2016fallcp/blog" />
+        <meta name="author" content="yen" />
+        <meta name="keywords" content="Brython" />
+        <meta name="description" content="Brython Canvas 源自 Canvas API, 以下將介紹 Brython 的繪圖對應 API 使用方法." />
 
-    <meta property="og:site_name" content="2016Fall 計算機程式課程網誌 (虎尾科大MDE)" />
-    <meta property="og:type" content="article"/>
-    <meta property="og:title" content="About"/>
-    <meta property="og:url" content="../../pages/about/"/>
-    <meta property="og:description" content="2016Fall 計算機程式課程網誌 本課程主要教導機械設計工程系大一學生下列內容: 如何利用 Github 管理電腦檔案. 如何利用 Python3 與 Brython 程式處理檔案資料. 如何利用 Brython 程式進行網際靜態與動態繪製. 課程倉儲: http://github.com/mdecourse/2016fallcp 課程投影片: http://mdecourse.github.io/2016fallcp 課程網誌: http://mdecourse.github.io/2016fallcp/blog" />
+        <meta property="og:site_name" content="2016Fall 計算機程式課程網誌 (虎尾科大MDE)" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Brython Canvas 繪圖"/>
+        <meta property="og:url" content="./brython-canvas-hui-tu.html"/>
+        <meta property="og:description" content="Brython Canvas 源自 Canvas API, 以下將介紹 Brython 的繪圖對應 API 使用方法."/>
+        <meta property="article:published_time" content="2016-12-31" />
+            <meta property="article:section" content="Course" />
+            <meta property="article:tag" content="Brython" />
+            <meta property="article:author" content="yen" />
 
 
     <!-- Bootstrap -->
-        <link rel="stylesheet" href="../../theme/css/bootstrap.united.min.css" type="text/css"/>
-    <link href="../../theme/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./theme/css/bootstrap.united.min.css" type="text/css"/>
+    <link href="./theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="../../theme/css/pygments/monokai.css" rel="stylesheet">
-    <link href="../../theme/tipuesearch/tipuesearch.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../theme/css/style.css" type="text/css"/>
+    <link href="./theme/css/pygments/monokai.css" rel="stylesheet">
+    <link href="./theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="./theme/css/style.css" type="text/css"/>
 
-        <link href="../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+        <link href="./feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="2016Fall 計算機程式課程網誌 (虎尾科大MDE) ATOM Feed"/>
 
 <script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shCore.js"></script>
@@ -248,28 +253,28 @@ init_mathjax();
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="../../" class="navbar-brand">
+            <a href="./" class="navbar-brand">
 2016Fall 計算機程式課程網誌 (虎尾科大MDE)            </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                         <li class="active"><a href="../../pages/about/">
+                         <li><a href="./pages/about/">
                              About
                           </a></li>
-                        <li >
-                            <a href="../../category/course.html">Course</a>
+                        <li class="active">
+                            <a href="./category/course.html">Course</a>
                         </li>
                         <li >
-                            <a href="../../category/misc.html">Misc</a>
+                            <a href="./category/misc.html">Misc</a>
                         </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><span>
-                <form class="navbar-search" action="../../search.html">
+                <form class="navbar-search" action="./search.html">
                   <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
                 </form></span>
               </li>
-              <li><a href="../../archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+              <li><a href="./archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -281,20 +286,198 @@ init_mathjax();
     <div class="row">
         <div class="col-sm-9">
 
-    <section id="content" class="body">
-        <h1 class="entry-title">About</h1>
-        
-        <div class="entry-content">
-            <h2>2016Fall 計算機程式課程網誌</h2>
-<p>本課程主要教導機械設計工程系大一學生下列內容:</p>
-<p>如何利用 <a href="http://github.com">Github</a> 管理電腦檔案.</p>
-<p>如何利用 Python3 與 <a href="https://brython.info/">Brython</a> 程式處理檔案資料.</p>
-<p>如何利用 <a href="https://brython.info/">Brython</a> 程式進行網際靜態與動態繪製.</p>
-<p>課程倉儲: <a href="http://github.com/mdecourse/2016fallcp">http://github.com/mdecourse/2016fallcp</a></p>
-<p>課程投影片: <a href="http://mdecourse.github.io/2016fallcp">http://mdecourse.github.io/2016fallcp</a></p>
-<p>課程網誌: <a href="http://mdecourse.github.io/2016fallcp/blog">http://mdecourse.github.io/2016fallcp/blog</a></p>
-        </div>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="./brython-canvas-hui-tu.html"
+                       rel="bookmark"
+                       title="Permalink to Brython Canvas 繪圖">
+                        Brython Canvas 繪圖
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-12-31T13:00:00+08:00"> Sat 31 December 2016</time>
+    </span>
+            <span class="label label-default">By</span>
+            <a href="./author/yen.html"><i class="fa fa-user"></i> yen</a>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="./tag/brython.html">Brython</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Brython Canvas 源自 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">Canvas API</a>, 以下將介紹 Brython 的繪圖對應 API 使用方法.</p>
+
+
+<p><a href="https://simon.html5.org/dump/html5-canvas-cheat-sheet.html">html5 Canvas cheat sheet</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial">Canvas tutorial</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Demos_of_open_web_technologies">Canvas demos</a></p>
+<!-- 導入 Brython 標準程式庫 -->
+
+<script type="text/javascript" 
+    src="https://cdn.rawgit.com/brython-dev/brython/master/www/src/brython_dist.js">
+</script>
+
+<!-- 啟動 Brython -->
+
+<script>
+window.onload=function(){
+brython(1);
+}
+</script>
+
+<!-- 以下可以執行  Brython 程式 -->
+
+<!-- div 標註區主要用來輸出字串 -->
+
+<div id="div1"></div>
+
+<!-- canvas 標註區則用來顯示繪圖內容
+canvas default width 為 300 height 則為 150
+-->
+
+<canvas id="can1"></canvas>
+
+<script type="text/python3">
+from browser import document
+from browser import html
+canvas = document["can1"]
+ctx = canvas.getContext("2d")
+
+def greensquare(ev):
+    ctx.fillStyle = "green"
+    ctx.fillRect(10, 10, 100, 100)
+
+def whitesquare(ev):
+    ctx.fillStyle = "white"
+    ctx.fillRect(10, 10, 100, 100)
+
+document["but1"].bind("click", greensquare)
+document["but2"].bind("click", whitesquare)
+</script>
+
+<p><button id="but1">畫綠色矩型</button>
+<button id="but2">清除</button></p>
+<pre class="brush: python"><div id="div1"></div>
+<!-- canvas 標註區則用來顯示繪圖內容
+canvas default width 為 300 height 則為 150
+-->
+<canvas id="can1"></canvas>
+<script type="text/python3">
+from browser import document
+from browser import html
+canvas = document["can1"]
+ctx = canvas.getContext("2d")
+
+def greensquare(ev):
+    ctx.fillStyle = "green"
+    ctx.fillRect(10, 10, 100, 100)
+
+def whitesquare(ev):
+    ctx.fillStyle = "white"
+    ctx.fillRect(10, 10, 100, 100)
+
+document["but1"].bind("click", greensquare)
+document["but2"].bind("click", whitesquare)
+</script>
+<button id="but1">畫綠色矩型</button>
+<button id="but2">清除</button>
+</pre>
+
+<p>以下為基本動畫 (<a href="http://jsdo.it/Salvatore/hs65">程式來源</a>):</p>
+<div id="content"></div>
+
+<script type="text/python3">
+from browser import document
+from browser import html
+from browser import alert
+from browser import timer
+
+# 數列內容為圖檔的 URL 連結字串
+listImages = [
+              "https://nodebox.net/code/data/media/growing_things.jpg",
+              "https://nodebox.net/code/data/media/neongolden.jpg"
+              ]
+
+# 以下3個變數, 其資料型別為 dictionary
+dictImages = {}
+dictRot = {}
+dictAnim = {}
+
+# anim 為動態繪圖對應變數
+anim = None
+
+def createIMG(id,src):
+    i = 0
+    for i in range(len(listImages)):
+        dictImages[i] = html.IMG(src="%s"%listImages[i], id=i, alt="Nodebox 圖檔")
+        dictImages[i].onclick = info 
+        dictImages[i].onmouseover = rotateImage
+        dictRot[i] = 0
+        dictAnim[i] = False
+
+def rotateImage(e):
+    e.target.style.cursor = 'pointer'
+    target = int(e.target.id)
+    dictRot[target] += 45
+    dictAnim[target] = True
+    rot =  dictRot[target] 
+    e.target.style.webkitTransform = "rotate(%sdeg)"%rot
+
+def info(e):
+    # 利用 alert() 顯示滑鼠點選 target 的 alt 資料
+    alert(e.target.alt)
+
+lenList = len(listImages)
+
+for i in range(lenList):
+    createIMG(i,listImages[i])
+
+def startAnimation():
+    global dictRot
+    dictRot[0] += 3
+    rot =  dictRot[0] 
+    dictImages[0].style.webkitTransform = "rotate(%sdeg)"%rot
+    dictImages[1].style.webkitTransform = "rotate(%sdeg)"%-rot
+
+def launchAnimation(ev):
+    global anim
+    # 初始旋轉, anim 為 None
+    if anim is None:
+        anim = timer.set_interval(startAnimation, 30)
+        # 初始旋轉後, 按鈕文字轉為"暫停旋轉"
+        document['but3'].text = '暫停旋轉'
+    elif anim == 'hold':
+        # 當 anim 為 'hold' 表示曾經暫停後的旋轉, 因此持續以 set_interval() 持續旋轉, 且將 but3 文字轉為"暫停旋轉"
+        anim = timer.set_interval(startAnimation, 30)
+        document['but3'].text = '暫停旋轉'
+    else:
+        # 初始旋轉後, 使用者再按 but3, 此時 anim 非 None 也不是 'hold', 因此會執行 clear_interval() 暫停旋轉
+        # 且將 anim 變數設為 'hold', 且 but3 文字轉為"繼續旋轉"
+        timer.clear_interval(anim)
+        anim = 'hold'
+        document['but3'].text = '繼續旋轉'
+
+for i in range(lenList):
+    document["content"] <= dictImages[i]
+document["but3"].bind("click", launchAnimation)
+</script>
+
+<p><button id="but3">旋轉圖檔</button><br /><br /></p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
     </section>
+
         </div>
         <div class="col-sm-3" id="sidebar">
             <aside>
@@ -305,49 +488,49 @@ init_mathjax();
             <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Recent Posts</span></h4>
                 <ul class="list-group" id="recentposts">
                     <li class="list-group-item">
-                        <a href="../../brython-canvas-hui-tu.html">
+                        <a href="./brython-canvas-hui-tu.html">
                             Brython Canvas 繪圖
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="../../xin-nian-kuai-le.html">
+                        <a href="./xin-nian-kuai-le.html">
                             新年快樂
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="../../ye-dan-kuai-le.html">
+                        <a href="./ye-dan-kuai-le.html">
                             耶誕快樂
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="../../ji-suan-ji-cheng-shi-w14-fan-li-zheng-li.html">
+                        <a href="./ji-suan-ji-cheng-shi-w14-fan-li-zheng-li.html">
                             計算機程式 W14 範例整理
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="../../ji-suan-ji-cheng-shi-w13.html">
+                        <a href="./ji-suan-ji-cheng-shi-w13.html">
                             計算機程式 W13
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="list-group-item"><a href="../../categories.html"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
+            <li class="list-group-item"><a href="./categories.html"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Categories</span></h4></a>
                 <ul class="list-group" id="categories">
                     <li class="list-group-item">
-                        <a href="../../category/course.html">
+                        <a href="./category/course.html">
                             <i class="fa fa-folder-open fa-lg"></i> Course
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="../../category/misc.html">
+                        <a href="./category/misc.html">
                             <i class="fa fa-folder-open fa-lg"></i> Misc
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="list-group-item"><a href="../../tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+            <li class="list-group-item"><a href="./tags.html"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group list-inline tagcloud" id="tags">
                 </ul>
             </li>
@@ -393,13 +576,13 @@ init_mathjax();
       </div>
    </div>
 </footer>
-<script src="../../theme/js/jquery.min.js"></script>
+<script src="./theme/js/jquery.min.js"></script>
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../../theme/js/bootstrap.min.js"></script>
+<script src="./theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
-<script src="../../theme/js/respond.min.js"></script>
+<script src="./theme/js/respond.min.js"></script>
 
 
 </body>

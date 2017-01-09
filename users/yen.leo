@@ -223,6 +223,11 @@
 <v t="yen.20161129153123.1"><vh>和絃參考</vh></v>
 <v t="yen.20161129153338.1"><vh>音符參考</vh></v>
 </v>
+<v t="leo.20170109142443.1" a="E"><vh>@path robodk</vh>
+<v t="leo.20170109141729.1"><vh>@button robot</vh></v>
+<v t="leo.20170109141932.1"><vh>@button robot1</vh></v>
+<v t="leo.20170109141953.1"><vh>@button robot2</vh></v>
+</v>
 </vnodes>
 <tnodes>
 <t tx="amd.20151215170031.1"></t>
@@ -638,6 +643,184 @@ doc['w13-1'].bind('click',convTemp)
 &lt;button id="w13-1"&gt;取攝氏溫度, 轉為華氏溫度&lt;/button&gt;
 &lt;/pre&gt;
 </t>
+<t tx="leo.20170109141729.1">from robolink import *    # API to communicate with RoboDK
+from robodk import *      # basic matrix operations
+import os
+import subprocess
+import threading
+
+# Any interaction with RoboDK must be done through
+# Robolink()
+RDK = Robolink()
+
+# get the robot item:
+#robot = RDK.ItemUserPick('Select a robot for welding', ITEM_TYPE_ROBOT)
+robot = RDK.Item("KUKA KR 6 R900 sixx", )
+robot1 = RDK.Item("ABB IRB 1600ID-4/1.5")
+robot2 = RDK.Item("Fanuc LR Mate 200iD/7L")
+
+def work1(robot):
+    if not robot.Valid():
+        raise Exception("Operation cancelled by user")
+
+    # get the home joints target
+    home = robot.JointsHome()
+
+    # get the reference welding target:
+    target = RDK.Item('Target')
+
+    # get the reference frame and set it to the robot
+    reference = target.Parent()
+    robot.setFrame(reference)
+
+    # get the pose of the target (4x4 matrix):
+    poseref = target.Pose()
+    pose_approach = poseref*transl(0,0,-100)
+
+    # move the robot to home, then to the center:
+    robot.MoveJ(home)
+    robot.MoveJ(pose_approach)
+    robot.MoveL(target)
+
+    # make an hexagon around the center:
+    for i in range(70):
+        ang = i*2*pi/6 #angle: 0, 60, 120, ...
+        posei = poseref*rotz(ang)*transl(200,0,0)*rotz(-ang)
+        robot.MoveL(posei)
+
+    # move back to the center, then home:
+    robot.MoveL(target)
+    robot.MoveL(pose_approach)
+    robot.MoveJ(home)
+    
+def domake():
+    work1(robot)
+    #work1(robot1)
+    #work1(robot2)
+
+# 利用執行緒執行 domake
+make = threading.Thread(target=domake)
+make.start()
+</t>
+<t tx="leo.20170109141932.1">from robolink import *    # API to communicate with RoboDK
+from robodk import *      # basic matrix operations
+import os
+import subprocess
+import threading
+
+# Any interaction with RoboDK must be done through
+# Robolink()
+RDK = Robolink()
+
+# get the robot item:
+#robot = RDK.ItemUserPick('Select a robot for welding', ITEM_TYPE_ROBOT)
+robot = RDK.Item("KUKA KR 6 R900 sixx", )
+robot1 = RDK.Item("ABB IRB 1600ID-4/1.5")
+robot2 = RDK.Item("Fanuc LR Mate 200iD/7L")
+
+def work1(robot):
+    if not robot.Valid():
+        raise Exception("Operation cancelled by user")
+
+    # get the home joints target
+    home = robot.JointsHome()
+
+    # get the reference welding target:
+    target = RDK.Item('Target')
+
+    # get the reference frame and set it to the robot
+    reference = target.Parent()
+    robot.setFrame(reference)
+
+    # get the pose of the target (4x4 matrix):
+    poseref = target.Pose()
+    pose_approach = poseref*transl(0,0,-100)
+
+    # move the robot to home, then to the center:
+    robot.MoveJ(home)
+    robot.MoveJ(pose_approach)
+    robot.MoveL(target)
+
+    # make an hexagon around the center:
+    for i in range(70):
+        ang = i*2*pi/6 #angle: 0, 60, 120, ...
+        posei = poseref*rotz(ang)*transl(200,0,0)*rotz(-ang)
+        robot.MoveL(posei)
+
+    # move back to the center, then home:
+    robot.MoveL(target)
+    robot.MoveL(pose_approach)
+    robot.MoveJ(home)
+    
+def domake():
+    #work1(robot)
+    work1(robot1)
+    #work1(robot2)
+
+# 利用執行緒執行 domake
+make = threading.Thread(target=domake)
+make.start()
+</t>
+<t tx="leo.20170109141953.1">from robolink import *    # API to communicate with RoboDK
+from robodk import *      # basic matrix operations
+import os
+import subprocess
+import threading
+
+# Any interaction with RoboDK must be done through
+# Robolink()
+RDK = Robolink()
+
+# get the robot item:
+#robot = RDK.ItemUserPick('Select a robot for welding', ITEM_TYPE_ROBOT)
+robot = RDK.Item("KUKA KR 6 R900 sixx", )
+robot1 = RDK.Item("ABB IRB 1600ID-4/1.5")
+robot2 = RDK.Item("Fanuc LR Mate 200iD/7L")
+
+def work1(robot):
+    if not robot.Valid():
+        raise Exception("Operation cancelled by user")
+
+    # get the home joints target
+    home = robot.JointsHome()
+
+    # get the reference welding target:
+    target = RDK.Item('Target')
+
+    # get the reference frame and set it to the robot
+    reference = target.Parent()
+    robot.setFrame(reference)
+
+    # get the pose of the target (4x4 matrix):
+    poseref = target.Pose()
+    pose_approach = poseref*transl(0,0,-100)
+
+    # move the robot to home, then to the center:
+    robot.MoveJ(home)
+    robot.MoveJ(pose_approach)
+    robot.MoveL(target)
+
+    # make an hexagon around the center:
+    for i in range(70):
+        ang = i*2*pi/6 #angle: 0, 60, 120, ...
+        posei = poseref*rotz(ang)*transl(200,0,0)*rotz(-ang)
+        robot.MoveL(posei)
+
+    # move back to the center, then home:
+    robot.MoveL(target)
+    robot.MoveL(pose_approach)
+    robot.MoveJ(home)
+    
+def domake():
+    #work1(robot)
+    #work1(robot1)
+    work1(robot2)
+
+# 利用執行緒執行 domake
+make = threading.Thread(target=domake)
+make.start()
+</t>
+<t tx="leo.20170109142443.1"></t>
 <t tx="yen.20161011114704.1">&lt;section data-markdown&gt;
     &lt;script type="text/template"&gt;
 @others
